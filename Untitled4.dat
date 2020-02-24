@@ -1,0 +1,22 @@
+#include<iostream>
+#include <sys/time.h>
+#include <time.h>
+#include <string.h>
+
+int main() {
+	int array[1000], x, y, z;
+	int i;
+	double CLOCK_PER_SEC; 
+		for (i=0; i <1001; i++) {
+			array[i] = i + 352;
+		}
+	int n = sizeof array/ sizeof array[0];
+	
+	clock_t start = clock();
+	merge(array, x, y, z);
+	clock_t end = clock();
+	double elapsed1 = ((end - start) / CLOCK_PER_SEC);
+	cout <<"Time elapsed for merge 1000: ";
+	
+	return (0);
+}
