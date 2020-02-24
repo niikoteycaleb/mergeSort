@@ -1,0 +1,87 @@
+#include<iostream>
+#include <sys/time.h>
+#include <time.h>
+#include <string.h>
+
+using namespace std;
+
+void swapping(int &a, int &b) {     //swap the content of a and b
+   int temp;
+   temp = a;
+   a = b;
+   b = temp;
+} 
+
+//function for the display of results of numbers entered to be sorted before and after
+void display(int *array, int size) {
+   for(int i = 0; i<size; i++)
+      cout << array[i] << " ";
+   	  cout << endl;
+}
+
+//merge sort function 
+
+
+void merge(int *array, int x, int y, int z) {
+   int i, j, k, nleft, nright;
+   
+   //size of left and right sub-arrays
+   nleft = y-x+1; nright = z-y;
+   int larr[nleft], rarr[nright];
+   
+   //fill left and right sub-arrays
+   for(i = 0; i<nleft; i++)
+      larr[i] = array[x+i];
+   for(j = 0; j<nright; j++)
+      rarr[j] = array[y+1+j];
+   i = 0; j = 0; k = x;
+   
+   //marge temp arrays to real array
+   while(i < nleft && j<nright) {
+      if(larr[i] <= rarr[j]) {
+         array[k] = larr[i];
+         i++;
+      }else{
+         array[k] = rarr[j];
+         j++;
+      }
+      k++;
+   }
+   while(i<nleft) {       //extra element in left array
+      array[k] = larr[i];
+      i++; k++;
+   }
+   while(j<nright) {     //extra element in right array
+      array[k] = rarr[j];
+      j++; k++;
+   }
+}
+
+
+void mergeSort(int *array, int x, int z) {
+   int y;
+   if(x < z) {
+      int y = x+(z-x)/2;
+      // Sort first and second arrays
+      mergeSort(array, x, y);
+      mergeSort(array, y+1, z);
+      merge(array, x, y, z);
+   }
+}
+int main() {
+   int n;
+   cout << "Enter the number of elements: ";
+   cin >> n;
+   int arr[n];     //create an array with given number of elements
+   cout << "Enter elements:" ;
+   for(int i = 0; i<n; i++) {
+      cin >> arr[i];
+   }
+   cout << "Array before Sorting: ";
+   display(arr, n);
+   mergeSort(arr, 0, n-1);     //(n-1) for last index
+   cout << "Array after Sorting: ";
+   display(arr, n);
+}
+
+
